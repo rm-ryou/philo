@@ -1,5 +1,5 @@
 NAME := philo
-CFLAGS := -MMD -MP -pthread #-fsanitize=thread -g -Wall -Werror -Wextra
+CFLAGS := -MMD -MP -pthread -fsanitize=thread -g #-Wall -Werror -Wextra
 SRCS_DIR := ./srcs
 OBJS_DIR := ./objs
 

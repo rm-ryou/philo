@@ -14,6 +14,8 @@ static int	is_dead_(t_monitor *monitor, int i)
 		pthread_mutex_unlock(&info->action);
 		return (1);
 	}
+	pthread_mutex_unlock(&info->action);
+	pthread_mutex_lock(&info->action);
 	if (!info->is_finished && time_stamp() - philo[i].time_last_meal > info->time_die)
 	{
 		print_state(info, i, DIED);

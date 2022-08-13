@@ -10,6 +10,8 @@ static void	hold_forks_(t_philo *philo)
 	pthread_mutex_lock(&info->action);
 	print_state(info, philo->id, FORK);
 	pthread_mutex_unlock(&info->action);
+	if (info->philo_num == 1)
+		return ;
 	pthread_mutex_lock(&info->fork[philo->right_fork]);
 	pthread_mutex_lock(&info->action);
 	print_state(info, philo->id, FORK);
@@ -21,14 +23,20 @@ static int	meal_release_forks_(t_philo *philo)
 	t_info	*info;
 
 	info = philo->info;
+	if (info->philo_num == 1)
+	{
+		pthread_mutex_unlock(&info->fork[philo->left_fork]);
+		return (1);
+	}
 	pthread_mutex_lock(&info->action);
 	print_state(info, philo->id, EAT);
 	philo->time_last_meal = time_stamp();
-	pthread_mutex_unlock(&info->action);
-	wait_time(info->time_eat, info);
-	pthread_mutex_lock(&info->action);
 	philo->meal_count++;
 	pthread_mutex_unlock(&info->action);
+	wait_time(info->time_eat, info);
+//	pthread_mutex_lock(&info->action);
+//	philo->meal_count++;
+//	pthread_mutex_unlock(&info->action);
 	if (info->must_eat != -1 && philo->meal_count >= info->must_eat)
 	{
 		pthread_mutex_unlock(&info->fork[philo->left_fork]);
@@ -64,12 +72,19 @@ void	*routine(void *philo_void)
 	wait_until_start(info);
 	if (philo->id % 2 == 0)
 		usleep(300);
-	while (!info->is_finished)
+	while (true)
 	{
 		hold_forks_(philo);
 		if (meal_release_forks_(philo))
 			return (NULL);
 		other_actions_(philo);
+		pthread_mutex_lock(&info->action);
+		if (info->is_finished)
+		{
+			pthread_mutex_unlock(&info->action);
+			return (NULL);
+		}
+		pthread_mutex_unlock(&info->action);
 	}
 	return (NULL);
 }
