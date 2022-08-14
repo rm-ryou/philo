@@ -16,6 +16,9 @@
 // in init_all.c
 int		init_all(t_info *info, char **argv);
 
+// in args_is_num.c
+int		is_valid_args(char **argv);
+
 // in launch_meal.c
 int		launch_philosophers(t_info *info);
 

@@ -11,7 +11,7 @@ int			ft_atoi(const char *nptr);
 int			ft_isdigit(int c);
 int			print_message(char *str, int res);
 void		print_state(t_info *info, int id, char *state);
-void		wait_time(long long time, t_info *info);
+void		wait_time(long long time);
 long long	time_stamp(void);
 
 #endif // !UTILS_H

@@ -1,10 +1,11 @@
 NAME := philo
-CFLAGS := -MMD -MP -pthread -fsanitize=thread -g #-Wall -Werror -Wextra
+CFLAGS := -MMD -MP -pthread -fsanitize=thread -g -Wall -Werror -Wextra
 SRCS_DIR := ./srcs
 OBJS_DIR := ./objs
 
 SRCS := $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/init_all.c \
+		$(SRCS_DIR)/args_is_num.c \
 		$(SRCS_DIR)/launch_meal.c \
 		$(SRCS_DIR)/monitor.c \
 		$(SRCS_DIR)/handle_thread.c \

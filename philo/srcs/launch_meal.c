@@ -33,10 +33,7 @@ static int	meal_release_forks_(t_philo *philo)
 	philo->time_last_meal = time_stamp();
 	philo->meal_count++;
 	pthread_mutex_unlock(&info->action);
-	wait_time(info->time_eat, info);
-//	pthread_mutex_lock(&info->action);
-//	philo->meal_count++;
-//	pthread_mutex_unlock(&info->action);
+	wait_time(info->time_eat);
 	if (info->must_eat != -1 && philo->meal_count >= info->must_eat)
 	{
 		pthread_mutex_unlock(&info->fork[philo->left_fork]);
@@ -56,7 +53,7 @@ void	other_actions_(t_philo *philo)
 	pthread_mutex_lock(&info->action);
 	print_state(info, philo->id, SLEEP);
 	pthread_mutex_unlock(&info->action);
-	wait_time(info->time_sleep, info);
+	wait_time(info->time_sleep);
 	pthread_mutex_lock(&info->action);
 	print_state(info, philo->id, THINK);
 	pthread_mutex_unlock(&info->action);

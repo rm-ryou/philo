@@ -3,3 +3,4 @@ philo/.vscode
 philo/objs/*
 philo/philo
 philo/*.c
+philo/*.d

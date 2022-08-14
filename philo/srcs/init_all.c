@@ -1,27 +1,6 @@
 #include "philo.h"
 #include "utils/utils.h"
 
-static int	is_valid_args_(char **argv)
-{
-	int	flg;
-
-	flg = 0;
-	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > 200)
-		flg = 1;
-	if (ft_atoi(argv[2]) <= 60)
-		flg = 1;
-	if (ft_atoi(argv[3]) <= 60)
-		flg = 1;
-	if (ft_atoi(argv[4]) <= 60)
-		flg = 1;
-	if (argv[5])
-	{
-		if (ft_atoi(argv[5]) < 1)
-			flg = 1;
-	}
-	return (flg);
-}
-
 static void	set_args_(t_info *info, char **argv)
 {
 	info->philo_num = ft_atoi(argv[1]);
@@ -72,7 +51,7 @@ int	init_all(t_info *info, char **argv)
 {
 	int	i;
 
-	if (is_valid_args_(argv))
+	if (is_valid_args(argv))
 		return (print_message("invalid argument", 1));
 	set_args_(info, argv);
 	if (init_philos_(info))
