@@ -15,7 +15,7 @@ SRCS := $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/utils/time.c \
 
 OBJS := $(patsubst $(SRCS_DIR)%,$(OBJS_DIR)%,$(SRCS:.c=.o))
-DEPS := $(SRCS:.c=.d)
+DEPS := $(OBJS:.o=.d)
 
 all: $(NAME)
 
